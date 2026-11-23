@@ -20,7 +20,8 @@ export function useFormattingLocale(): string {
 // locale's catalog is ever used.
 const CATALOGS: Readonly<Record<string, () => unknown>> = {
   es: () => require("./translations/es.json"),
-  zh: () => require("./translations/zh.json"),
+  "zh-CN": () => require("./translations/zh-CN.json"),
+  "zh-TW": () => require("./translations/zh-TW.json"),
   "pt-BR": () => require("./translations/pt-BR.json"),
   fr: () => require("./translations/fr.json"),
   de: () => require("./translations/de.json"),

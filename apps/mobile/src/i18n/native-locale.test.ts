@@ -43,13 +43,13 @@ it("uses the new Android locale before native storage finishes writing it", () =
         const { pending } = await import(androidBridge);
         hooks.deregister();
 
-        initializeGT({ defaultLocale: "en", locales: ["en", "zh"] });
+        initializeGT({ defaultLocale: "en", locales: ["en", "zh-CN"] });
         new NativeConditionStore({ locale: "en" });
         for (const apply of pending.splice(0)) apply();
-        console.log(new NativeConditionStore({ locale: "zh" }).getLocale());
+        console.log(new NativeConditionStore({ locale: "zh-CN" }).getLocale());
       `,
     ],
     { cwd: NodeURL.fileURLToPath(new URL("../../", import.meta.url)), encoding: "utf8" },
   );
-  expect(output.trim()).toBe("zh");
+  expect(output.trim()).toBe("zh-CN");
 });

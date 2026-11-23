@@ -135,6 +135,16 @@ describe("ClientSettings terminal close confirmation", () => {
   });
 });
 
+describe("ClientSettings language migration", () => {
+  it("migrates legacy zh to zh-CN while preserving other language settings", () => {
+    expect(decodeClientSettings({ language: "zh" }).language).toBe("zh-CN");
+    expect(decodeClientSettingsPatch({ language: "zh" })).toEqual({ language: "zh-CN" });
+    expect(decodeClientSettings({ language: "zh-TW" }).language).toBe("zh-TW");
+    expect(decodeClientSettings({ language: "system" }).language).toBe("system");
+    expect(decodeClientSettings({}).language).toBe("en");
+  });
+});
+
 describe("ServerSettings usage price overrides", () => {
   const prices = { inputCostPerMillionTokens: 2, outputCostPerMillionTokens: 8 };
 

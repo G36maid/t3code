@@ -305,6 +305,18 @@ export type DefaultThemePreference = typeof DefaultThemePreference.Type;
 export const DefaultAppearancePreference = Schema.Literals(["", "light", "dark", "system"]);
 export type DefaultAppearancePreference = typeof DefaultAppearancePreference.Type;
 
+// A locale code or "system". Open string so new locales and downgrades need no migration;
+// legacy "zh" predates the zh-CN/zh-TW split and always meant Simplified Chinese.
+const LanguageSetting = Schema.String.pipe(
+  Schema.decodeTo(
+    Schema.String,
+    SchemaTransformation.transform({
+      decode: (language) => (language === "zh" ? "zh-CN" : language),
+      encode: (language) => language,
+    }),
+  ),
+);
+
 export const DEFAULT_BROWSER_VIEWPORT: PreviewViewportSetting = FILL_PREVIEW_VIEWPORT;
 export const DEFAULT_BROWSER_AUTO_SHOW_FLOATING_PREVIEW = true;
 export {
@@ -592,7 +604,7 @@ export const ClientSettingsSchema = Schema.Struct({
   ),
   speechCorrectionWord: SpeechCorrectionCue.pipe(Schema.withDecodingDefault(Effect.succeed(""))),
   // A locale code or "system". Open string so new locales and downgrades need no migration.
-  language: Schema.String.pipe(Schema.withDecodingDefault(Effect.succeed("en"))),
+  language: LanguageSetting.pipe(Schema.withDecodingDefault(Effect.succeed("en"))),
   snapShotEnabled: Schema.Boolean.pipe(Schema.withDecodingDefault(Effect.succeed(false))),
   snapShotIncludeAccessibility: Schema.Boolean.pipe(
     Schema.withDecodingDefault(Effect.succeed(true)),
@@ -2151,7 +2163,7 @@ export const ClientSettingsPatch = Schema.Struct({
   speechRemoveFillerWords: Schema.optionalKey(Schema.Boolean),
   speechPostProcessingPrompt: Schema.optionalKey(SpeechPostProcessingPromptSettings),
   speechCorrectionWord: Schema.optionalKey(SpeechCorrectionCue),
-  language: Schema.optionalKey(Schema.String),
+  language: Schema.optionalKey(LanguageSetting),
   snapShotEnabled: Schema.optionalKey(Schema.Boolean),
   snapShotIncludeAccessibility: Schema.optionalKey(Schema.Boolean),
   snapShotShortcut: Schema.optionalKey(SnapShotShortcut),

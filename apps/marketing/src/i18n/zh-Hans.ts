@@ -1,6 +1,6 @@
 import type { Messages } from "./en";
 
-export const zh: Messages = {
+export const zhHans: Messages = {
   layout: {
     defaultTitle: "T3 Code",
     defaultDescription: "T3 Code：面向编程智能体的开源控制中心。",

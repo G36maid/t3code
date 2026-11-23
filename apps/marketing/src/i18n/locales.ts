@@ -1,10 +1,11 @@
 // `code` is Astro's locale code and the BCP 47 tag for `<html lang>` and hreflang. `path` is the URL
 // segment. pt-BR lives at `/pt-br`: lowercase like every other path on the site, with the region
-// kept so a future pt-PT can sit beside it. zh is Simplified Chinese.
+// kept so a future pt-PT can sit beside it. zh-Hans is Simplified, zh-Hant Traditional.
 export const LOCALES = [
   { code: "en", path: "", name: "English" },
   { code: "es", path: "es", name: "Español" },
   { code: "zh-Hans", path: "zh", name: "简体中文" },
+  { code: "zh-Hant", path: "zh-tw", name: "繁體中文" },
   { code: "pt-BR", path: "pt-br", name: "Português (Brasil)" },
   { code: "fr", path: "fr", name: "Français" },
   { code: "de", path: "de", name: "Deutsch" },

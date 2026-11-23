@@ -7,12 +7,14 @@ import { ko } from "./ko";
 import type { Locale } from "./locales";
 import { ptBR } from "./pt-BR";
 import { ru } from "./ru";
-import { zh } from "./zh";
+import { zhHans } from "./zh-Hans";
+import { zhHant } from "./zh-Hant";
 
 const MESSAGES: Record<Locale, Messages> = {
   en,
   es,
-  "zh-Hans": zh,
+  "zh-Hans": zhHans,
+  "zh-Hant": zhHant,
   "pt-BR": ptBR,
   fr,
   de,
